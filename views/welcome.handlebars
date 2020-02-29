@@ -1,1 +1,35 @@
-<h1>Try to keep this to one page Eric would ya?</h1>
+  <script>
+    let coords = {};
+ navigator.geolocation.getCurrentPosition(ok, err);
+ function ok(pos) {
+   console.log(pos);
+   coords = pos.coords;
+   link = document.getElementById("autoLink");
+   link.setAttribute('href', `/rank/all?lat=${coords.latitude}&long=${coords.longitude}`);
+   button = document.getElementById("autoButton");
+   button.innerHTML = "Click Here!"
+ }
+ function err(err) {
+   console.warn(`ERROR CODE ${err.code}: ${err.message}`);
+ }
+  </script>
+<h1 class="display-4">Where will you eat today?</h1>
+
+<p class="lead">Click here to find resturants near you</p>
+<a id="autoLink"><button id="autoButton">Please enable location services</button></a>
+
+<p> - or - </p>
+<p>Enter in a location</p>
+<form class="form-control">
+
+</form>
+
+<p> - Know what you want? - </p>
+
+<p> Search for it</p>
+<form autocomplete="off" action="/action_page.php">
+  <div class="autocomplete" style="width:300px;">
+    <input id="myInput" type="text" name="myCountry" placeholder="Country">
+  </div>
+  <input type="submit">
+</form>

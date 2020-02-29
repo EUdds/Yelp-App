@@ -5,6 +5,8 @@ const EXPRESS = require('express');
 const EXPHBS = require('express-handlebars');
 const BODY_PARSER = require('body-parser');
 const HTTP = require('http');
+const REQUEST = require('request');
+const RP = require('request-promise');
 
 const APP = module.exports.app = EXPRESS();
 const SERVER = HTTP.createServer(APP);
@@ -25,7 +27,22 @@ APP.get('*', (req, res, next) => {
 });
 
 APP.get('/', (req, res) => {
-  res.render('welcome', {
-    // options
-  })
-})
+  res.render('welcome');
+});
+
+APP.get('/rank/all', (req, res) => {
+  console.log(req.query);
+  let lat = req.query.lat;
+  let long = req.query.long;
+  let options = {
+    headers : {
+      Authorization: 'Bearer ' + process.env.APIKEY
+    }
+  }
+  REQUEST(`https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${long}&limit=${5}`,options, (err, response, body) => {
+    list = JSON.parse(body);  
+    res.render('list', {
+      resturants: list.businesses
+    })
+  });
+});
