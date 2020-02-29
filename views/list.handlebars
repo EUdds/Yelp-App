@@ -1,0 +1,27 @@
+{{#each resturants}}
+<table>
+  <tr>
+  <th>{{this.name}}</th>
+  </tr>
+  <tr>
+    <td>
+    {{#if this.is_closed}} Closed Now {{else}} Open Now! {{/if}}
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <img src="{{this.image_url}}" height="120px" width="120px">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      View this on Yelp!
+    </td>
+    <td>
+      <a href="{{this.url}}">Click Here!</a>
+    </td>
+  </tr>
+
+</table>
+
+{{/each}}
